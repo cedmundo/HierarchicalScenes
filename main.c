@@ -149,9 +149,21 @@ int main(int argc, char **argv) {
         },
     });
 
+    ecs_entity_t parent_1 = ecs_entity(world, {});
+    ecs_add_pair(world, parent_1, EcsChildOf, parent_0);
+    ecs_add(world, parent_1, RotateB);
+    ecs_set(world, parent_1, ObjectTransform, {
+        .world = MatrixTranslate(0, 0, 0),
+        .local = {
+                .scale = Vector3One(),
+                .translation = Vector3Zero(),
+                .rotation = QuaternionIdentity(),
+        },
+    });
+
     ecs_entity_t maxwell_entity = ecs_entity(world, {});
-    ecs_add_pair(world, maxwell_entity, EcsChildOf, parent_0);
-    ecs_add(world, maxwell_entity, RotateB);
+    ecs_add_pair(world, maxwell_entity, EcsChildOf, parent_1);
+    ecs_add(world, maxwell_entity, RotateA);
     ecs_set(world, maxwell_entity, ObjectTransform, {
         .world = MatrixIdentity(),
         .local = {
